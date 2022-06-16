@@ -4,60 +4,42 @@ Simple FastAPI backend to decode VINs, powered by the vPIC API and backed by a S
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+This is a fastAPI backend with three routes:
 
-## Getting Started
+`/lookup`
+
+This route will first check the SQLite database to see if a cached result is available. If so, it should be returned
+from the database.
+
+The response object will contain the following elements:
+
+- Input VIN Requested (string, exactly 17 alphanumeric characters)
+- Make (String)
+- Model (String)
+- Model Year (String)
+- Body Class (String)
+- Cached Result? (Boolean)
+
+`/remove`
+
+This route will remove a entry from the cache.
+
+`/export`
+
+This route will export the SQLite database cache and return a binary file (parquet format) containing the data in the
+cache.
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
+Python Version: 3.8.13
 ### Installing
 
-Run 'python setup.py install
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+Run 'pip install -r requirements.txt' to get all libraries used
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+Run 'python -m app.main' in terminal to start server
 
-## Help
+Run 'pytest' to execute tests
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+Run 'pytest --cov=app tests/' to get a coverage report
